@@ -2,6 +2,8 @@
 # deck has cards
 # cards have stats
 
+require 'securerandom'
+
 class Player
    attr_accessor :name, :email, :password, :deck
    def initialize(name, email, password, deck=[])
@@ -23,5 +25,14 @@ class Card
       @right = right
       @element = element
       @img = img
+      @card_id = SecureRandom.uuid
    end
 end
+
+# multiple instances of the same exact card 
+
+# irb -r './game.rb'
+# These are all the cards player 1 has
+# player1 = Player.new('michael', 'm@example', '11111')
+# card = Card.new('Tornberry' , 1, 2, 3, 4)
+# player1.deck << card 
