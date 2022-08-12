@@ -36,3 +36,5 @@ end
 # player1 = Player.new('michael', 'm@example', '11111')
 # card = Card.new('Tornberry' , 1, 2, 3, 4)
 # player1.deck << card 
+
+# we need a way to store this information. - by a database - SQLite
