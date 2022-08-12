@@ -3,6 +3,33 @@
 # cards have stats
 
 require 'securerandom'
+require 'sqlite3'
+
+db = SQLite3::Database.new("game.db")
+rows = db.execute <<-SQL
+create table players(
+   id PRIMARY KEY,
+   name varchar(255),
+   email varchar(255),
+   password varchar(255)
+);
+
+create table cards (
+   id PRIMARY KEY,
+   name varchar(255),
+   top int,
+   left int,
+   bottom int,
+   right int,
+   element varchar(255),
+   img varchar(255),
+   card_id varchar(255),
+   player_id int
+);
+
+SQL
+
+p rows
 
 class Player
    attr_accessor :name, :email, :password, :deck
@@ -27,7 +54,29 @@ class Card
       @img = img
       @card_id = SecureRandom.uuid
    end
+
+   # Write to the database
+   def save
+      $db.execute <<-SQL
+         INSERT INTO cards (name, top, left, bottom, right)
+         VALUES ("#{@name}" , "#{@top}" , "#{@left}", "#{bottom}", "#{@right}" );
+      SQL
+      puts "#{@name}-#{@card_id} saved to database!"
+   end
 end
+
+@card.save
+
+
+
+
+
+
+
+
+
+
+
 
 # multiple instances of the same exact card 
 
